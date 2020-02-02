@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mappers.RolesMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.pojo.Roles">
+        <id column="r_id" jdbcType="VARCHAR" property="rId"/>
+        <result column="r_name" jdbcType="VARCHAR" property="rName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    r_id, r_name
+  </sql>
+    <!--  查询角色信息表数据-->
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from roles
+        where r_id = #{rId,jdbcType=INTEGER}
+    </select>
+    <!--  删除角色信息表数据-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from roles
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+    <!-- 插入角色信息表数据-->
+    <insert id="insertSelective" keyColumn="r_id" keyProperty="rId" parameterType="com.example.demo.pojo.Roles"
+            useGeneratedKeys="true">
+        insert into roles
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rName != null">
+                r_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rName != null">
+                #{rName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <!--  更新角色信息表数据-->
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.pojo.Roles">
+        update roles
+        <set>
+            <if test="rName != null">
+                r_name = #{rName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where r_id = #{rId,jdbcType=INTEGER}
+    </update>
+    <!--查询所有角色信息表数据-->
+    <select id="findAll" resultType="com.example.demo.pojo.Roles">
+    select *from roles
+  </select>
+</mapper>

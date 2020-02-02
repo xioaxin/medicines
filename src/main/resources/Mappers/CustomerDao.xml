@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mappers.CustomerMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.pojo.Customer">
+        <id column="c_id" jdbcType="VARCHAR" property="cId"/>
+        <result column="c_name" jdbcType="VARCHAR" property="cName"/>
+        <result column="c_sex" jdbcType="VARCHAR" property="cSex"/>
+        <result column="c_age" jdbcType="INTEGER" property="cAge"/>
+        <result column="c_password" jdbcType="VARCHAR" property="cPassword"/>
+        <result column="c_phone" jdbcType="VARCHAR" property="cPhone"/>
+        <result column="c_email" jdbcType="VARCHAR" property="cEmail"/>
+        <result column="c_address" jdbcType="VARCHAR" property="cAddress"/>
+        <result column="c_class" jdbcType="INTEGER" property="cClass"/>
+        <result column="c_healthyStatus" jdbcType="VARCHAR" property="cHealthystatus"/>
+        <result column="c_remark" jdbcType="VARCHAR" property="cRemark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    c_id, c_name, c_sex, c_age, c_password, c_phone, c_email, c_address, c_class, c_healthyStatus, 
+    c_remark
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from customer
+        where c_id = #{cId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from customer
+    where c_id = #{cId,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insertSelective" keyColumn="c_id" keyProperty="cId" parameterType="com.example.demo.pojo.Customer"
+            useGeneratedKeys="true">
+        insert into customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cName != null">
+                c_name,
+            </if>
+            <if test="cSex != null">
+                c_sex,
+            </if>
+            <if test="cAge != null">
+                c_age,
+            </if>
+            <if test="cPassword != null">
+                c_password,
+            </if>
+            <if test="cPhone != null">
+                c_phone,
+            </if>
+            <if test="cEmail != null">
+                c_email,
+            </if>
+            <if test="cAddress != null">
+                c_address,
+            </if>
+            <if test="cClass != null">
+                c_class,
+            </if>
+            <if test="cHealthystatus != null">
+                c_healthyStatus,
+            </if>
+            <if test="cRemark != null">
+                c_remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cName != null">
+                #{cName,jdbcType=VARCHAR},
+            </if>
+            <if test="cSex != null">
+                #{cSex,jdbcType=VARCHAR},
+            </if>
+            <if test="cAge != null">
+                #{cAge,jdbcType=INTEGER},
+            </if>
+            <if test="cPassword != null">
+                #{cPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="cPhone != null">
+                #{cPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="cEmail != null">
+                #{cEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="cAddress != null">
+                #{cAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="cClass != null">
+                #{cClass,jdbcType=INTEGER},
+            </if>
+            <if test="cHealthystatus != null">
+                #{cHealthystatus,jdbcType=VARCHAR},
+            </if>
+            <if test="cRemark != null">
+                #{cRemark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.pojo.Customer">
+        update customer
+        <set>
+            <if test="cName != null">
+                c_name = #{cName,jdbcType=VARCHAR},
+            </if>
+            <if test="cSex != null">
+                c_sex = #{cSex,jdbcType=VARCHAR},
+            </if>
+            <if test="cAge != null">
+                c_age = #{cAge,jdbcType=INTEGER},
+            </if>
+            <if test="cPassword != null">
+                c_password = #{cPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="cPhone != null">
+                c_phone = #{cPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="cEmail != null">
+                c_email = #{cEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="cAddress != null">
+                c_address = #{cAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="cClass != null">
+                c_class = #{cClass,jdbcType=INTEGER},
+            </if>
+            <if test="cHealthystatus != null">
+                c_healthyStatus = #{cHealthystatus,jdbcType=VARCHAR},
+            </if>
+            <if test="cRemark != null">
+                c_remark = #{cRemark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where c_id = #{cId,jdbcType=INTEGER}
+    </update>
+    <select id="findAll" resultType="com.example.demo.pojo.Customer">
+    select *from customer
+  </select>
+</mapper>

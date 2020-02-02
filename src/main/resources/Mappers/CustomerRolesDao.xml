@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mappers.CustomerAndRolesMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.pojo.CustomerAndRoles">
+        <result column="c_id" jdbcType="VARCHAR" property="cId"/>
+        <result column="r_id" jdbcType="VARCHAR" property="rId"/>
+    </resultMap>
+    <!--  添加用户角色信息-->
+    <insert id="insertSelective" parameterType="com.example.demo.pojo.CustomerAndRoles">
+        insert into customer_roles
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cId != null">
+                c_id,
+            </if>
+            <if test="rId != null">
+                r_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cId != null">
+                #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="rId != null">
+                #{rId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <!--  删除用户角色信息-->
+    <delete id="deleteCustomerRoles" parameterType="com.example.demo.pojo.CustomerAndRoles">
+    delete from customer_roles where customer_roles.c_id=#{cId} and rId=#{rId}
+  </delete>
+    <!--  更新用户角色信息-->
+    <update id="updateCustomerRoles" parameterType="com.example.demo.pojo.CustomerAndRoles">
+    update customer_roles set  r_id=#{rId} where c_id=#{cId}
+  </update>
+    <!--  查询用户角色信息-->
+    <select id="queryCustomerRoles" parameterType="com.example.demo.pojo.CustomerAndRoles"
+            resultType="com.example.demo.pojo.CustomerAndRoles">
+        select *from customer_roles where  c_id=#{cId,jdbcType=INTEGER}
+    </select>
+    <!--  查询全部角色用户信息-->
+    <select id="findAll" resultType="com.example.demo.pojo.CustomerAndRoles">
+        select *from customer_roles
+    </select>
+</mapper>
